@@ -18,8 +18,10 @@ object Versions {
     const val COMPOSE_BOOM = "2023.03.00"
     const val COMPOSE_TEST = "3.5.1"
     const val COMPOSE_VERSION = "1.4.0"
-
+    const val LIFECYCLE_VERSION = "2.4.1"
     const val CONSTRAINT_LAYOUT = "1.0.0"
+    const val COMPOSE_LIVEDATA_VERSION = "1.3.0"
+    const val LIFECYCLE_EXTENSION = "2.0.0"
 
     const val ESPRESSO_CORE = "3.5.1"
     const val EXT_JUNIT = "1.1.5"

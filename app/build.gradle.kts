@@ -75,11 +75,32 @@ dependencies {
     androidTestImplementation(platform("${Libs.COMPOSE_BOOM}:${Versions.COMPOSE_BOOM}"))
     debugImplementation(Libs.COMPOSE_UI_TOOLING)
     debugImplementation(Libs.COMPOSE_MANIFEST_TEST)
+    implementation("${Libs.LIFECYCLE}:${Versions.LIFECYCLE_EXTENSION}")
+    implementation("${Libs.LIFECYCLE_LIVE_DATA_KTX}:${Versions.LIFECYCLE_VERSION}")
+    implementation("${Libs.LIFECYCLE_RUNTIME_KTX}:${Versions.LIFECYCLE_VERSION}")
+    implementation("${Libs.COMPOSE_LIVEDATA}:${Versions.COMPOSE_LIVEDATA_VERSION}")
 
     // Hilt dependencies
     implementation("${Libs.DAGGER_HILT_ANDROID}:${Versions.DAGGER_HILT_VERSION}")
     kapt("${Libs.DAGGER_HILT_ANDROID_COMPILER}:${Versions.DAGGER_HILT_VERSION}")
     implementation("${Libs.HILT_NAVIGATION_COMPOSE}:${Versions.HILT_NAVIGATION_COMPOSE}")
-    // Hilt dependencies
+
+    //Network
+    implementation("${Libs.SQUARE_UP_MOSHI_KOTLIN}:${Versions.SQUARE_UP_MOSHI}")
+    implementation("${Libs.SQUARE_UP_OKHTTP3}:${Versions.SQUARE_UP_OKHTTP3}")
+    ksp("${Libs.SQUARE_UP_MOSHI_CODEGEN}:${Versions.SQUARE_UP_MOSHI}")
+    implementation("${Libs.SQUARE_UP_OKHTTP3_INTERCEPTOR}:${Versions.SQUARE_UP_OKHTTP3}")
+    implementation("${Libs.SQUARE_UP_RETROFIT2_CONVERTER}:${Versions.RETROFIT_VERSION}")
+    implementation("${Libs.SQUARE_UP_RETROFIT2}:${Versions.RETROFIT_VERSION}")
+
+    //moshi
+    implementation("${Libs.SQUARE_UP_MOSHI}:${Versions.SQUARE_UP_MOSHI}")
+    ksp("${Libs.SQUARE_UP_MOSHI_CODEGEN}:${Versions.SQUARE_UP_MOSHI}")
+    implementation("${Libs.SQUARE_UP_MOSHI_KOTLIN}:${Versions.SQUARE_UP_MOSHI}")
+
+    //Unit test
+    testImplementation("${Libs.COROUTINES_TEST}:${Versions.COROUTINES_TEST}")
+    androidTestImplementation("${Libs.COMPOSE_UI_TEST}:${Versions.COMPOSE_VERSION}")
+    testImplementation("${Libs.MOCKITO_KOTLIN}:${Versions.MOCKITO_KOTLIN}")
 
 }

@@ -28,6 +28,9 @@ object Libs {
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx"
     const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx"
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx"
+    const val LIFECYCLE = "androidx.lifecycle:lifecycle-extensions"
+    const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata"
+
 
     const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose"
 
@@ -36,5 +39,20 @@ object Libs {
     const val DAGGER_HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler"
     const val DAGGER_HILT_TEST = "com.google.dagger:hilt-android-testing"
     const val HILT_NAVIGATION_COMPOSE = "androidx.hilt:hilt-navigation-compose"
+
+    //Network
+    const val SQUARE_UP_MOSHI = "com.squareup.moshi:moshi"
+    const val SQUARE_UP_MOSHI_KOTLIN = "com.squareup.moshi:moshi-kotlin"
+    const val SQUARE_UP_MOSHI_CODEGEN = "com.squareup.moshi:moshi-kotlin-codegen"
+    const val SQUARE_UP_OKHTTP3 = "com.squareup.okhttp3:okhttp"
+    const val SQUARE_UP_OKHTTP3_MOCK_SERVER = "com.squareup.okhttp3:mockwebserver"
+    const val SQUARE_UP_OKHTTP3_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
+    const val SQUARE_UP_RETROFIT2_RXJAVA = "com.squareup.retrofit2:adapter-rxjava2"
+    const val SQUARE_UP_RETROFIT2_CONVERTER = "com.squareup.retrofit2:converter-moshi"
+    const val SQUARE_UP_RETROFIT2 = "com.squareup.retrofit2:retrofit"
+
+
+    //mockito
+    const val MOCKITO_KOTLIN = "org.mockito.kotlin:mockito-kotlin"
 
 }

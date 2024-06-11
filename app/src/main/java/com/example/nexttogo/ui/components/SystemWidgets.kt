@@ -27,8 +27,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,9 +41,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nexttogo.constants.RaceCategory
 import com.example.nexttogo.data.entities.RaceItemData
+import com.example.nexttogo.data.entities.RaceSummary
 import com.example.nexttogo.ui.theme.Background
 import com.example.nexttogo.ui.theme.LightGrey
+import com.example.nexttogo.utils.Utils
 import kotlinx.coroutines.delay
+import java.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,7 +110,7 @@ fun ToggleButtonSegmented(
 
 @Composable
 fun RaceDetailsItem(
-    itemData: RaceItemData,
+    itemData: RaceSummary,
     refreshing: () -> Unit
 ) {
 
@@ -118,7 +124,7 @@ fun RaceDetailsItem(
     ) {
 
         Image(
-            painter = painterResource(id = itemData.categoryId),
+            painter = painterResource(id = RaceCategory.getIconByCategoryId(itemData.categoryId)),
             contentDescription = "",
             modifier = Modifier
                 .padding(10.dp)
@@ -133,13 +139,40 @@ fun RaceDetailsItem(
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterEnd
         ) {
-            Text(
-                text = "1m10s",
-                fontSize = 16.sp,
-            )
+            TimerScreen(targetTime = itemData.advertisedStart.seconds) {
+                refreshing()
+            }
         }
     }
 
+}
+
+@Composable
+fun TimerScreen(
+    targetTime: Long,
+    refreshing: () -> Unit
+) {
+    var timeRemaining by remember {
+        mutableStateOf(targetTime- Instant.now().epochSecond)
+    }
+
+    LaunchedEffect(targetTime){
+        snapshotFlow { timeRemaining }
+            .collect { _ ->
+                delay(1000)
+                timeRemaining = targetTime - Instant.now().epochSecond
+                if ((timeRemaining) <= -60) {
+                    refreshing()
+                }
+            }
+    }
+
+
+    Text(
+        text = Utils.convertTimerFormat(timeRemaining),
+        color = if (timeRemaining < 0) Color.Red else Color.Black,
+        fontSize = 16.sp,
+    )
 }
 
 
