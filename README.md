@@ -43,6 +43,9 @@ The project follows the MVVM (Model-View-ViewModel) architecture.
 3. **UI Enhancements**:
    - Add more UI animations to make page refreshes smoother.
 
+4. **Add More APIs**:
+   - There is no API request for directly filtering by category. Each time we want to show data by category, we must send a request to get more data. The current `count=10` parameter is not sufficient.
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/next_to_go_test.git
