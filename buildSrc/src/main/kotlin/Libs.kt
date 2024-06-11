@@ -37,7 +37,6 @@ object Libs {
     //Dagger Hilt
     const val DAGGER_HILT_ANDROID = "com.google.dagger:hilt-android"
     const val DAGGER_HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler"
-    const val DAGGER_HILT_TEST = "com.google.dagger:hilt-android-testing"
     const val HILT_NAVIGATION_COMPOSE = "androidx.hilt:hilt-navigation-compose"
 
     //Network
@@ -45,9 +44,7 @@ object Libs {
     const val SQUARE_UP_MOSHI_KOTLIN = "com.squareup.moshi:moshi-kotlin"
     const val SQUARE_UP_MOSHI_CODEGEN = "com.squareup.moshi:moshi-kotlin-codegen"
     const val SQUARE_UP_OKHTTP3 = "com.squareup.okhttp3:okhttp"
-    const val SQUARE_UP_OKHTTP3_MOCK_SERVER = "com.squareup.okhttp3:mockwebserver"
     const val SQUARE_UP_OKHTTP3_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
-    const val SQUARE_UP_RETROFIT2_RXJAVA = "com.squareup.retrofit2:adapter-rxjava2"
     const val SQUARE_UP_RETROFIT2_CONVERTER = "com.squareup.retrofit2:converter-moshi"
     const val SQUARE_UP_RETROFIT2 = "com.squareup.retrofit2:retrofit"
 
