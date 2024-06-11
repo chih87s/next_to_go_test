@@ -54,5 +54,6 @@ object Libs {
 
     //mockito
     const val MOCKITO_KOTLIN = "org.mockito.kotlin:mockito-kotlin"
+    const val MOCKK = "io.mockk:mockk"
 
 }

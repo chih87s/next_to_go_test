@@ -26,7 +26,6 @@ class RaceViewModel @Inject constructor(
     fun fetchRaceData(categoryId: String) {
         viewModelScope.launch {
             dataList.value = repository.fetchAllData(categoryId)
-            Log.e("Main", "received response ${dataList.value}")
         }
     }
 }

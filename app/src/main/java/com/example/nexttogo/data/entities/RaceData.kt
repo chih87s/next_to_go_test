@@ -12,7 +12,6 @@ data class RaceItemData(
 
 @JsonClass(generateAdapter = true)
 data class ApiResponse(
-    @Json(name = "status") val status: Int,
     @Json(name = "data") val data: Data?
 )
 

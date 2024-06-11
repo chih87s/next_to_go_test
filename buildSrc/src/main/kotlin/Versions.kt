@@ -42,5 +42,5 @@ object Versions {
     const val RETROFIT_VERSION = "2.9.0"
 
     const val MOCKITO_KOTLIN = "3.2.0"
-
+    const val MOCKK = "1.13.10"
 }

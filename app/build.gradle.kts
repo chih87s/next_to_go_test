@@ -102,5 +102,6 @@ dependencies {
     testImplementation("${Libs.COROUTINES_TEST}:${Versions.COROUTINES_TEST}")
     androidTestImplementation("${Libs.COMPOSE_UI_TEST}:${Versions.COMPOSE_VERSION}")
     testImplementation("${Libs.MOCKITO_KOTLIN}:${Versions.MOCKITO_KOTLIN}")
+    testImplementation("${Libs.MOCKK}:${Versions.MOCKK}")
 
 }

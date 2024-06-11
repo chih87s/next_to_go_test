@@ -1,6 +1,6 @@
 package com.example.nexttogo.ui.views
 
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -24,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nexttogo.constants.RaceCategory
@@ -45,6 +44,7 @@ fun MainScreen(
     var defaultSelected by remember {
         mutableStateOf(0)
     }
+
     var uiData by remember {
         mutableStateOf(listOf<RaceSummary>())
     }
@@ -57,15 +57,15 @@ fun MainScreen(
         }
 
         is ApiResponseResult.Error -> {
-
+            //To handle response error
+            val errorMessage = (raceDataResult as ApiResponseResult.Error).exception.message ?: "Unknown error"
+            Toast.makeText(LocalContext.current, errorMessage, Toast.LENGTH_SHORT).show()
         }
 
-        else ->{
-            LoadingScreen()
+        else -> {
         }
 
     }
-
 
     val items =
         listOf(RaceCategory.ALL, RaceCategory.HORSE, RaceCategory.HARNESS, RaceCategory.GREY_HOUND)
@@ -77,7 +77,6 @@ fun MainScreen(
     ) {
         Row(modifier = Modifier.padding(vertical = 10.dp)) {
             ToggleButtonSegmented(items = items, selectedIndex = defaultSelected, onItemSelected = {
-                Log.e("Main", "refreshing() call to fetch race data with category id - ${items[defaultSelected].categoryId}")
                 defaultSelected = it
                 viewModel.fetchRaceData(items[it].categoryId)
             })
@@ -97,7 +96,6 @@ fun MainScreen(
         ) {
             items(uiData) { raceData ->
                 RaceDetailsItem(itemData = raceData) {
-                    Log.e("Main", "refreshing() call to fetch race data with category id - ${items[defaultSelected].categoryId}")
                     viewModel.fetchRaceData(items[defaultSelected].categoryId)
                 }
                 Divider()
@@ -108,21 +106,3 @@ fun MainScreen(
 
 }
 
-@Composable
-fun LoadingScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) { CircularProgressIndicator() }
-}
-
-
-@Composable
-fun ErrorScreen(errorMessage: String){
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = errorMessage)
-    }
-}

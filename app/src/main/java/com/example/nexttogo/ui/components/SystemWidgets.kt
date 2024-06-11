@@ -117,7 +117,9 @@ fun RaceDetailsItem(
     refreshing: () -> Unit
 ) {
     var mTimer by remember { mutableStateOf(itemData.advertisedStart.seconds - Instant.now().epochSecond) }
+
     LaunchedEffect(itemData.advertisedStart.seconds) {
+        //To delegate time change and updating remaining text
         while (true) {
             val currentTime = Instant.now().epochSecond
             mTimer = itemData.advertisedStart.seconds - currentTime
@@ -152,8 +154,8 @@ fun RaceDetailsItem(
                 .padding(10.dp)
                 .size(46.dp)
         )
-        Text(text = itemData.meetingName, modifier = Modifier.weight(1f))
-        Text(text = itemData.raceNumber.toString(), modifier = Modifier.weight(1f))
+        Text(text = itemData.meetingName, color = Color.Black, modifier = Modifier.weight(1f))
+        Text(text = itemData.raceNumber.toString(),color = Color.Black, modifier = Modifier.weight(1f))
         Box(
             modifier = Modifier
                 .padding(end = 10.dp)
