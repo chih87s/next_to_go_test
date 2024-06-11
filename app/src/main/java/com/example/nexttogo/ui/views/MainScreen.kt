@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -33,6 +34,8 @@ import com.example.nexttogo.ui.components.RaceDetailsItem
 import com.example.nexttogo.ui.components.ToggleButtonSegmented
 import com.example.nexttogo.ui.theme.Background
 import com.example.nexttogo.ui.viewModel.RaceViewModel
+import com.example.nexttogo.utils.Utils
+import java.time.Instant
 
 @Composable
 fun MainScreen(
@@ -47,7 +50,6 @@ fun MainScreen(
     }
     val raceDataResult by viewModel.dataList.observeAsState()
 
-
     when (raceDataResult) {
         is ApiResponseResult.Success -> {
             val raceData = (raceDataResult as ApiResponseResult.Success).data
@@ -58,9 +60,10 @@ fun MainScreen(
 
         }
 
-        else -> {
+        else ->{
             LoadingScreen()
         }
+
     }
 
 
@@ -74,6 +77,7 @@ fun MainScreen(
     ) {
         Row(modifier = Modifier.padding(vertical = 10.dp)) {
             ToggleButtonSegmented(items = items, selectedIndex = defaultSelected, onItemSelected = {
+                Log.e("Main", "refreshing() call to fetch race data with category id - ${items[defaultSelected].categoryId}")
                 defaultSelected = it
                 viewModel.fetchRaceData(items[it].categoryId)
             })
@@ -93,16 +97,14 @@ fun MainScreen(
         ) {
             items(uiData) { raceData ->
                 RaceDetailsItem(itemData = raceData) {
-                    Log.e("Main", "refreshing() call to fetch race data")
-                    viewModel.fetchRaceData("all")
+                    Log.e("Main", "refreshing() call to fetch race data with category id - ${items[defaultSelected].categoryId}")
+                    viewModel.fetchRaceData(items[defaultSelected].categoryId)
                 }
                 Divider()
-
             }
         }
 
     }
-
 
 }
 
@@ -112,4 +114,15 @@ fun LoadingScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) { CircularProgressIndicator() }
+}
+
+
+@Composable
+fun ErrorScreen(errorMessage: String){
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = errorMessage)
+    }
 }

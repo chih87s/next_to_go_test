@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +46,9 @@ import com.example.nexttogo.data.entities.RaceSummary
 import com.example.nexttogo.ui.theme.Background
 import com.example.nexttogo.ui.theme.LightGrey
 import com.example.nexttogo.utils.Utils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import java.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -113,6 +116,25 @@ fun RaceDetailsItem(
     itemData: RaceSummary,
     refreshing: () -> Unit
 ) {
+    var mTimer by remember { mutableStateOf(itemData.advertisedStart.seconds - Instant.now().epochSecond) }
+    LaunchedEffect(itemData.advertisedStart.seconds) {
+        while (true) {
+            val currentTime = Instant.now().epochSecond
+            mTimer = itemData.advertisedStart.seconds - currentTime
+            if (mTimer <= -59) {
+                withContext(Dispatchers.Main) {
+                    refreshing()
+                }
+                break
+            }
+            delay(1000)
+        }
+    }
+    DisposableEffect(Unit) {
+        onDispose {
+            mTimer = 0
+        }
+    }
 
     Row(
         modifier = Modifier
@@ -139,40 +161,15 @@ fun RaceDetailsItem(
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterEnd
         ) {
-            TimerScreen(targetTime = itemData.advertisedStart.seconds) {
-                refreshing()
-            }
+
+            Text(
+                text = Utils.convertTimerFormat(mTimer),
+                color = if (mTimer <= 0) Color.Red else Color.Black,
+                fontSize = 16.sp,
+            )
         }
     }
 
-}
-
-@Composable
-fun TimerScreen(
-    targetTime: Long,
-    refreshing: () -> Unit
-) {
-    var timeRemaining by remember {
-        mutableStateOf(targetTime- Instant.now().epochSecond)
-    }
-
-    LaunchedEffect(targetTime){
-        snapshotFlow { timeRemaining }
-            .collect { _ ->
-                delay(1000)
-                timeRemaining = targetTime - Instant.now().epochSecond
-                if ((timeRemaining) <= -60) {
-                    refreshing()
-                }
-            }
-    }
-
-
-    Text(
-        text = Utils.convertTimerFormat(timeRemaining),
-        color = if (timeRemaining < 0) Color.Red else Color.Black,
-        fontSize = 16.sp,
-    )
 }
 
 
