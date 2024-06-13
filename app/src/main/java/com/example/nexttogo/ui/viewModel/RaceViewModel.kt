@@ -27,11 +27,7 @@ class RaceViewModel @Inject constructor(
 
     fun fetchRaceData(categoryId: String) {
         viewModelScope.launch(Dispatchers.IO){
-            val tmp = repository.fetchAllData(categoryId)
-            withContext(Dispatchers.Main){
-                dataList.value = tmp
-            }
-
+            dataList.postValue(repository.fetchAllData(categoryId))
         }
     }
 }

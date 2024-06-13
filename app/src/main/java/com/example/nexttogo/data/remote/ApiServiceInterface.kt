@@ -12,6 +12,4 @@ interface ApiServiceInterface {
         @Query("method") method: String,
         @Query("count") count: Int): Response<ApiResponse>
 
-
-
 }
