@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.nexttogo.data.entities.RaceSummary
 import com.example.nexttogo.data.remote.ApiServiceInterface
 import com.example.nexttogo.network.ApiResponseResult
+import java.time.Instant
 
 class FetchDataRepositoryImpl(
     private val api: ApiServiceInterface
@@ -23,12 +24,15 @@ class FetchDataRepositoryImpl(
                             raceSummaries[key]?.let { orderedList.add(it) }
                         }
                     }
+
                     val filteredData = orderedList.filter { item ->
-                        (item.advertisedStart.seconds - System.currentTimeMillis() / 1000) > -59
+                        (item.advertisedStart.seconds - Instant.now().epochSecond) > -59
                     }
+
                     val finalData = filteredData.filter { item ->
                         categoryId == "all" || item.categoryId == categoryId
                     }
+
                     ApiResponseResult.Success(finalData.take(5))
                 } ?: ApiResponseResult.Error(Exception("No data available"))
             } else {
