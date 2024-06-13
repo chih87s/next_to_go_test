@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nexttogo.constants.RaceCategory
-import com.example.nexttogo.data.entities.RaceItemData
 import com.example.nexttogo.data.entities.RaceSummary
 import com.example.nexttogo.network.ApiResponseResult
 import com.example.nexttogo.ui.components.RaceDetailsItem

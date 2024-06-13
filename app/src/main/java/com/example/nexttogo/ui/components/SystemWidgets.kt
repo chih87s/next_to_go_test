@@ -41,7 +41,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nexttogo.constants.RaceCategory
-import com.example.nexttogo.data.entities.RaceItemData
 import com.example.nexttogo.data.entities.RaceSummary
 import com.example.nexttogo.ui.theme.Background
 import com.example.nexttogo.ui.theme.LightGrey
