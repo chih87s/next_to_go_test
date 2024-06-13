@@ -3,13 +3,6 @@ package com.example.nexttogo.data.entities
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-data class RaceItemData(
-    val categoryId: Int,
-    val meetingName:String,
-    val raceNumber: Int,
-    val countDownTime: Long,
-)
-
 @JsonClass(generateAdapter = true)
 data class ApiResponse(
     @Json(name = "data") val data: Data?
